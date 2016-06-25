@@ -1,0 +1,26 @@
+{
+  "name": "hexo-spoiler",
+  "version": "1.0.1",
+  "description": "A spoiler creator for Hexo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unnamed42/hexo-spoiler.git"
+  },
+  "keywords": [
+    "hexo",
+    "spoiler"
+  ],
+  "author": "黄文睿",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/unnamed42/hexo-spoiler/issues"
+  },
+  "homepage": "https://github.com/unnamed42/hexo-spoiler#readme",
+  "dependency": {
+    "hexo-util": ""
+  }
+}
