@@ -1,0 +1,9 @@
+span[class^='spoiler']{
+    color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    text-shadow: black 0px 0px 10px;
+    cursor: auto;
+}
+span[class^='spoiler']:hover {
+    text-shadow: black 0px 0px 0px;
+}
