@@ -28,9 +28,9 @@ hexo.extend.generator.register('css', function(locals) {
 
 hexo.extend.filter.register('after_post_render',function(data){
     
-    var link_css = "<link rel=\"stylesheet\" href=\"/css/spoiler.css\" type=\"text/css\">"
+    var link_css = "<link rel=\"stylesheet\" href=\"css/spoiler.css\" type=\"text/css\">"
     
-    data.content = link_css + data.content;
-    
+    data.content = data.content + link_css;
+
     return data;
 });
