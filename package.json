@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/unnamed42/hexo-spoiler#readme",
   "dependency": {
-    "hexo-util": "",
-    "hexo-fs": ""
+    "hexo-util": "^0.5.3",
+    "hexo-fs": "^0.1.6"
   }
 }
