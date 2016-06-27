@@ -26,11 +26,23 @@ hexo.extend.generator.register('css', function(locals) {
     return route;
 });
 
+hexo.extend.generator.register('js', function(locals) {
+    
+    var route = {
+        path: 'js/spoiler.js',
+        data: function() {return fs.createReadStream(path.resolve(assetBase,'spoiler.js'));}
+    }
+    
+    return route;
+});
+
 hexo.extend.filter.register('after_post_render',function(data){
     
-    var link_css = "<link rel=\"stylesheet\" href=\"/css/spoiler.css\" type=\"text/css\">"
+    var link_css = "<link rel=\"stylesheet\" href=\"/css/spoiler.css\" type=\"text/css\">";
     
-    data.content = data.content + link_css;
+    var link_js = "<script src=\"/js/spoiler.js\" type=\"text/javascript\"></script>";
+    
+    data.content = data.content + link_css + '\n' +link_js;
 
     return data;
 });

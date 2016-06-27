@@ -7,7 +7,9 @@ npm install hexo-spoiler --save
 {% spoiler text %}
 ```
 
-It will add mosiac to your text, and the text will show up when mouse on it.
+**Important**: You must ensure jquery is injected before your main article!
+
+It will add mosiac to your text, and the text will show up when clicked. Click again to hide your text.
 
 But you need to add `<br>` manually if you want line breaks after/before it.
 
