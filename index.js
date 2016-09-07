@@ -6,9 +6,7 @@ hexo.extend.tag.register('spoiler', function(args) {
     
     html_code = html_code.replace(/<(|\/)p>/g,'');
     
-    var spoiler_result = "<span class=\"spoiler\">" + html_code + "</span>";
-    
-    return spoiler_result;
+    return "<span class=\"spoiler\">" + html_code + "</span>";
 });
 
 var fs = require('hexo-fs');
@@ -42,7 +40,7 @@ hexo.extend.filter.register('after_post_render',function(data){
     
     var link_js = "<script src=\"/js/spoiler.js\" type=\"text/javascript\"></script>";
     
-    data.content = data.content + link_css + '\n' +link_js;
+    data.content += link_css + '\n' +link_js;
 
     return data;
 });
