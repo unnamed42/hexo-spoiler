@@ -31,5 +31,7 @@ hexo.extend.filter.register('after_post_render',function(data){
     
     var link_js = "<script src=\"/js/spoiler.js\" type=\"text/javascript\"></script>";
     
-    data += link_css + link_js;
+    data.content += link_css + link_js;
+    
+    return data;
 });
