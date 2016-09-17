@@ -29,7 +29,7 @@ hexo.extend.generator.register('spoiler_asset', function(locals) {
 hexo.extend.filter.register('after_post_render',function(data){
     var link_css = "<link rel=\"stylesheet\" href=\"/css/spoiler.css\" type=\"text/css\">";
     
-    var link_js = "<script src=\"/js/spoiler.js\" type=\"text/javascript\"></script>";
+    var link_js = "<script src=\"/js/spoiler.js\" type=\"text/javascript\" async></script>";
     
     data.content += link_css + link_js;
     
