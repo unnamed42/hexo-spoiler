@@ -4,7 +4,7 @@ hexo.extend.tag.register('spoiler', function(args) {
     
     var html_code = hexo.render.renderSync({text: content, engine: "markdown"});
     
-    html_code = html_code.replace(/<(|\/)p>/g,'');
+    html_code = html_code.replace(/<\/?p>/g,'');
     
     return "<span class=\"spoiler\">" + html_code + "</span>";
 });
@@ -26,12 +26,14 @@ hexo.extend.generator.register('spoiler_asset', function(locals) {
     ];
 });
 
-hexo.extend.filter.register('after_post_render',function(data){
-    var link_css = "<link rel=\"stylesheet\" href=\"/css/spoiler.css\" type=\"text/css\">";
+hexo.extend.filter.register('after_render:html',function(str,data){
     
-    var link_js = "<script src=\"/js/spoiler.js\" type=\"text/javascript\" async></script>";
+    var css = "<link rel=\"stylesheet\" href=\"/css/spoiler.css\" type=\"text/css\">";
     
-    data.content += link_css + link_js;
+    var js = "<script src=\"/js/spoiler.js\" type=\"text/javascript\" async></script>";
     
-    return data;
+    if(str.indexOf("span class=\"spoiler\"") != -1)
+        str = str.replace(/<\s*\/\s*head\s*>/, css + js + "</head>");
+    
+    return str;
 });
