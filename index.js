@@ -9,31 +9,39 @@ hexo.extend.tag.register('spoiler', function(args) {
     return "<span class=\"spoiler\">" + html_code + "</span>";
 });
 
-var fs = require('hexo-fs');
-var path = require('path');
+var css = "<style>"
+          "span.spoiler {" + 
+              "color: rgba(0, 0, 0, 0);" + 
+              "background-color: rgba(0, 0, 0, 0);" + 
+              "text-shadow: grey 0px 0px 10px;" +
+              "cursor: pointer;" +
+              "-webkit-transition: text-shadow .5s ease;" +
+              "-moz-transition: text-shadow .5s ease;" +
+              "transition: text-shadow .5s ease;" +
+          "}" +
+          "span.spoiler:hover {" +
+              "text-shadow: grey 0px 0px 5px;" +
+          "}" +
+          "span.spoiler.revealed {" +
+              "text-shadow: grey 0px 0px 0px;" +
+          "}"
+          "</style>";
 
-hexo.extend.generator.register('spoiler_asset', function(locals) {
-    var assetBase = path.resolve(__dirname, "./asset");
-    return [
-        {
-            path: 'css/spoiler.css',
-            data: function() {return fs.createReadStream(path.resolve(assetBase,'spoiler.css'));}
-        },
-        {
-            path: 'js/spoiler.js',
-            data: function() {return fs.createReadStream(path.resolve(assetBase,'spoiler.js'));}
-        }
-    ];
-});
+var js = '<script type="text/javascript">'
+         "(function(){"
+             "var spoiler = document.getElementsByClassName('spoiler');"
+             "for(var i = 0; i < spoiler.length; ++i) {"
+                 "spoiler[i].addEventListener('click', function() {"
+                     "this.classList.toggle('revealed');"
+                 "});"
+             "}"
+         "})();"
+         "</script>";
 
 hexo.extend.filter.register('after_render:html',function(str,data){
     
-    var css = "<link rel=\"stylesheet\" href=\"/css/spoiler.css\" type=\"text/css\">";
-    
-    var js = "<script src=\"/js/spoiler.js\" type=\"text/javascript\" async></script>";
-    
     if(str.indexOf("span class=\"spoiler\"") != -1)
-        str = str.replace(/<\s*\/\s*head\s*>/, css + js + "</head>");
+        str = str.replace(/<\s*\/\s*head\s*>/i, css + js + "</head>");
     
     return str;
 });
