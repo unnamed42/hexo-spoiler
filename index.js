@@ -9,7 +9,7 @@ hexo.extend.tag.register('spoiler', function(args) {
     return "<span class=\"spoiler\">" + html_code + "</span>";
 });
 
-var css = "<style>"
+var css = "<style>" + 
           "span.spoiler {" + 
               "color: rgba(0, 0, 0, 0);" + 
               "background-color: rgba(0, 0, 0, 0);" + 
@@ -24,18 +24,18 @@ var css = "<style>"
           "}" +
           "span.spoiler.revealed {" +
               "text-shadow: grey 0px 0px 0px;" +
-          "}"
+          "}" +
           "</style>";
 
-var js = '<script type="text/javascript">'
-         "(function(){"
-             "var spoiler = document.getElementsByClassName('spoiler');"
-             "for(var i = 0; i < spoiler.length; ++i) {"
-                 "spoiler[i].addEventListener('click', function() {"
-                     "this.classList.toggle('revealed');"
-                 "});"
-             "}"
-         "})();"
+var js = '<script type="text/javascript">' + 
+         "(function(){" + 
+             "var spoiler = document.getElementsByClassName('spoiler');" + 
+             "for(var i = 0; i < spoiler.length; ++i) {" + 
+                 "spoiler[i].addEventListener('click', function() {" + 
+                     "this.classList.toggle('revealed');" + 
+                 "});" + 
+             "}" + 
+         "})();" + 
          "</script>";
 
 hexo.extend.filter.register('after_render:html',function(str,data){
