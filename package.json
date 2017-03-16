@@ -1,6 +1,6 @@
 {
   "name": "hexo-spoiler",
-  "version": "1.3.0",
+  "version": "1.3.2",
   "description": "A spoiler creator for Hexo",
   "main": "index.js",
   "scripts": {
