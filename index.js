@@ -1,22 +1,27 @@
 "use strict";
 
-var path = require("path");
-var fs   = require("hexo-fs");
+const path    = require("path");
+const read    = require("hexo-fs").readFileSync;
+const cheerio = require('cheerio');
 
-var css = '<style type="text/css">' + fs.readFileSync(path.resolve("src/spoiler.css")) + "</style>";
-var js  = '<script type="text/javascript">' + fs.readFileSync(path.resolve("src/spoiler.js")) + "</script>";
+const asset = `<style type="text/css">${read(path.join(__dirname, "src/spoiler.css"))}</style>` + 
+              `<script type="text/javascript">${read(path.join(__dirname, "src/spoiler.js"))}</script>`;
 
 hexo.extend.tag.register('spoiler', function(args) {
-    var content = args.join(' ');
-    var html_code = hexo.render.renderSync({text: content, engine: "markdown"}).replace(/<\/?p>/g,'');
+    const spoiler = hexo.render.renderAsync({
+        text: args.join(' '), engine: "markdown"
+    }).replace(/<\/?p>/g,'');
     
-    return '<span class="spoiler">' + html_code + "</span>";
+    return `<span class="spoiler">${spoiler}</span>`;
 });
 
-hexo.extend.filter.register('after_render:html',function(str,data){
+hexo.extend.filter.register('after_render:html', function(str, data) {
+    const $ = cheerio.load(str);
     
-    if(str.indexOf('span class="spoiler"') != -1)
-        str = str.replace(/<\s*\/\s*head\s*>/i, css + js + "</head>");
+    if($(".spoiler").length) {
+        $("head").append(asset);
+        str = $.html();
+    }
     
     return str;
 });
