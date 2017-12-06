@@ -3,8 +3,8 @@
 var path = require("path");
 var fs   = require("hexo-fs");
 
-var css = '<style type="text/css">' + fs.readFileSync(path.join(__dirname, "src/spoiler.css")) + "</style>";
-var js  = '<script type="text/javascript">' + fs.readFileSync(path.join(__dirname, "src/spoiler.js")) + "</script>";
+var css = '<style type="text/css">' + fs.readFileSync(path.resolve("src/spoiler.css")) + "</style>";
+var js  = '<script type="text/javascript">' + fs.readFileSync(path.resolve("src/spoiler.js")) + "</script>";
 
 hexo.extend.tag.register('spoiler', function(args) {
     var content = args.join(' ');
