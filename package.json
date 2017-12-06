@@ -1,6 +1,6 @@
 {
   "name": "hexo-spoiler",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "A spoiler creator for Hexo",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,8 @@
     "url": "git+https://github.com/unnamed42/hexo-spoiler.git"
   },
   "dependencies": {
-    "hexo-fs": "^0.2.0"
+    "hexo-fs": "^0.2.0",
+    "cheerio": "^0.20.0"
   },
   "keywords": [
     "hexo",
