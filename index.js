@@ -1,17 +1,42 @@
 "use strict";
 
-const path    = require("path");
-const read    = require("hexo-fs").readFileSync;
 const cheerio = require("cheerio");
 
-const asset = `<style type="text/css">${read(path.join(__dirname, "src/spoiler.css"))}</style>` + 
-              `<script type="text/javascript">${read(path.join(__dirname, "src/spoiler.js"))}</script>`;
+const asset = `
+<script type="text/javascript">
+window.addEventListener("load", function(){
+    var spoiler = document.getElementsByClassName("spoiler");
+    for(var i=0; i<spoiler.length; ++i){
+        spoiler.addEventListener("click", function(){
+            this.classList.toggle("revealed");
+        });
+    }
+});
+</script>
+<style type="text/css">
+span.spoiler {
+    color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    text-shadow: grey 0px 0px 10px;
+    cursor: pointer;
+    -webkit-transition: text-shadow .5s ease;
+       -moz-transition: text-shadow .5s ease;
+            transition: text-shadow .5s ease;
+}
+span.spoiler:hover {
+    text-shadow: grey 0px 0px 5px;
+}
+span.spoiler.revealed {
+    text-shadow: grey 0px 0px 0px;
+}
+</style>
+`;
 
 hexo.extend.tag.register('spoiler', function(args) {
     const spoiler = hexo.render.renderSync({
         text: args.join(' '), engine: "markdown"
     }).replace(/<\/?p>/g,'');
-    
+
     return `<span class="spoiler">${spoiler}</span>`;
 });
 

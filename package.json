@@ -11,8 +11,7 @@
     "url": "git+https://github.com/unnamed42/hexo-spoiler.git"
   },
   "dependencies": {
-    "hexo-fs": "^0.2.0",
-    "cheerio": "^0.20.0"
+    "cheerio": "^0.22.0"
   },
   "keywords": [
     "hexo",
