@@ -1,7 +1,5 @@
 "use strict";
 
-const cheerio = require("cheerio");
-
 const asset = `
 <script type="text/javascript">
 window.addEventListener("load", function(){
@@ -41,10 +39,7 @@ hexo.extend.tag.register('spoiler', function(args) {
 });
 
 hexo.extend.filter.register('after_render:html', function(str, data) {
-    const $ = cheerio.load(str);
-    if($(".spoiler").length) {
-        $("head").append(asset);
-        return $.html();
-    }
+    if(str.indexOf('class="spoiler"') !== -1)
+        return str.replace(/<\s*\/\s*head\s*>/i, `${asset}</head>`);
     return str;
 }, 1);
