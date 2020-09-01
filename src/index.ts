@@ -71,7 +71,7 @@ const parseOption = (args: string[] | undefined): [Options, string[]] => {
     if(matches?.groups == undefined)
       break;
     const { option, value } = matches.groups;
-    if(processors[option]?.(value) == undefined)
+    if(!processors[option]?.(value))
       break;
   }
 

@@ -52,7 +52,7 @@ const parseOption = (args) => {
         if ((matches === null || matches === void 0 ? void 0 : matches.groups) == undefined)
             break;
         const { option, value } = matches.groups;
-        if (((_a = processors[option]) === null || _a === void 0 ? void 0 : _a.call(processors, value)) == undefined)
+        if (!((_a = processors[option]) === null || _a === void 0 ? void 0 : _a.call(processors, value)))
             break;
     }
     return [options, args.slice(i)];
