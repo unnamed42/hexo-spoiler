@@ -25,7 +25,7 @@ Available options:
 |`color`|All valid css colors, but **NO** space allowed!|Only works in `style:box`, changes the color of the box. The default color is `black`|
 |`p`|Empty or anything|The spoiler text will be wrapped by `<p>` rather than `<span>`. Add this if you want newline before&after spoiler text|
 
-[Preview](./example/index.html)
+[Preview](http://htmlpreview.github.io/?https://github.com/unnamed42/hexo-spoiler/blob/master/example/index.html)
 
 ## Limitations
 
