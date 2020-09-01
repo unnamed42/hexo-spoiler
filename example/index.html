@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <style type="text/css">
+        .spoiler {
+            display: inline-flex;
+        }
+
+        p.spoiler {
+            display: flex;
+        }
+
+        .spoiler-blur, .spoiler-blur > * {
+            transition: text-shadow .5s ease;
+        }
+
+        .spoiler .spoiler-blur, .spoiler .spoiler-blur > * {
+            color: rgba(0, 0, 0, 0);
+            background-color: rgba(0, 0, 0, 0);
+            text-shadow: 0 0 10px grey;
+            cursor: pointer;
+        }
+
+        .spoiler .spoiler-blur:hover, .spoiler .spoiler-blur:hover > * {
+            text-shadow: 0 0 5px grey;
+        }
+
+        .spoiler-box, .spoiler-box > * {
+            transition: color .5s ease,
+            background-color .5s ease;
+        }
+
+        .spoiler .spoiler-box, .spoiler .spoiler-box > * {
+            color: black;
+            background-color: black;
+            text-shadow: none;
+        }
+
+        .spoiler .spoiler-box.spoiler-a2eb7, .spoiler .spoiler-box.spoiler-a2eb7 > * {
+            color: rgba(173,20,83,0.5);
+            background-color: rgba(173,20,83,0.5);
+        }
+
+        .spoiler .spoiler-box.spoiler-bda96, .spoiler .spoiler-box.spoiler-bda96 > * {
+            color: red;
+            background-color: red;
+        }</style>
+</head>
+<body>
+<div id="container">
+    <figure class="highlight plain">
+        <table>
+            <tr>
+                <td class="gutter">
+                                            <pre><span class="line">1</span><br><span class="line">2</span><br><span
+                                                    class="line">3</span><br><span class="line">4</span><br><span
+                                                    class="line">5</span><br><span class="line">6</span><br><span
+                                                    class="line">7</span><br><span class="line">8</span><br><span
+                                                    class="line">9</span><br></pre>
+                </td>
+                <td class="code">
+                                            <pre><span class="line">&#123;% spoiler p: color:red &#96;inline code&#96; [link](https:&#x2F;&#x2F;example.com) *italic* ~~delete~~ **bold** %&#125;</span><br><span
+                                                    class="line"></span><br><span class="line">&#123;% spoiler style:box color:red p: &#96;inline code&#96; [link](https:&#x2F;&#x2F;example.com) *italic* ~~delete~~ **bold** %&#125;</span><br><span
+                                                    class="line"></span><br><span class="line">&#123;% spoiler p: unknown:invalid style:box [^footnote] %&#125;</span><br><span
+                                                    class="line"></span><br><span class="line">&#123;% spoiler style:box color:rgb(173,20,83,0.5) &#96;inline code&#96; [link](https:&#x2F;&#x2F;example.com) *italic* ~~delete~~ **bold** %&#125;</span><br><span
+                                                    class="line"></span><br><span class="line">&#123;% spoiler style:box color:rgb(173, 20, 83, 0.5) &#96;inline code&#96; [link](https:&#x2F;&#x2F;example.com) *italic* ~~delete~~ **bold** %&#125;</span><br></pre>
+                </td>
+            </tr>
+        </table>
+    </figure>
+
+
+    <p>Normal inline elements, blur style, surrounded by <code>&lt;p/&gt;</code>:</p>
+
+    <p class="spoiler" onclick="this.classList.toggle('spoiler')">
+                                <span class="spoiler-blur spoiler-bda96"><code>inline code</code> <a href="https://example.com/"
+                                                                                                     rel="noopener"
+                                                                                                     target="_blank">link</a> <em>italic</em> <del>delete</del> <strong>bold</strong></span>
+    </p>
+
+    <p>Normal inline elements, box style, red color, surrounded by <code>&lt;p/&gt;</code>:</p>
+
+    <p class="spoiler" onclick="this.classList.toggle('spoiler')">
+                                <span class="spoiler-box spoiler-bda96"><code>inline code</code> <a href="https://example.com/"
+                                                                                                    rel="noopener"
+                                                                                                    target="_blank">link</a> <em>italic</em> <del>delete</del> <strong>bold</strong></span>
+    </p>
+
+    <p>Normal inline elements, default style (blur). <code>style:box</code> is after the invalid option <code>unknown</code>, so it is considered as normal text. Surrounded by <code>&lt;p/&gt;</code>:</p>
+
+    <p class="spoiler" onclick="this.classList.toggle('spoiler')">
+        <span class="spoiler-blur ">unknown:invalid style:box [^footnote]</span>
+    </p>
+
+    <p>Normal inline elements, box style, color <code>rgba(173,20,83,0.5)</code>, surrounded by <code>&lt;span/&gt;</code>:</p>
+
+    <span class="spoiler" onclick="this.classList.toggle('spoiler')">
+    <span class="spoiler-box spoiler-a2eb7"><code>inline code</code> <a href="https://example.com/" rel="noopener"
+                                                                        target="_blank">link</a> <em>italic</em> <del>delete</del> <strong>bold</strong></span>
+  </span>
+
+    <p>Normal inline elements, box style, invalid color (has spaces inside value) is considered as text, surrounded by <code>&lt;span/&gt;</code>:</p>
+
+    <span class="spoiler" onclick="this.classList.toggle('spoiler')">
+    <span class="spoiler-box ">color:rgb(173, 20, 83, 0.5) <code>inline code</code> <a href="https://example.com/" rel="noopener"
+                                                                                       target="_blank">link</a> <em>italic</em> <del>delete</del> <strong>bold</strong></span>
+  </span>
+
+
+</div>
+</body>
+</html>
