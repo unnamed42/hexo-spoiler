@@ -22,11 +22,38 @@ Available options:
 |Option name|Option value|Effect|
 |-|-|-|
 |`style`|`blur` or `box`|The spoiler text will be blurred or covered by a box. The default style is `blur`.|
-|`color`|All valid css colors, but **NO** space allowed!|Only works in `style:box`, changes the color of the box. The default color is `black`|
-|`p`|Empty or anything|The spoiler text will be wrapped by `<p>` rather than `<span>`. Add this if you want newline before&after spoiler text|
+|`color`|All valid css colors</br>**NO** space allowed for inline option!|Only works in `style:box`, changes the color of the box. The default color is `black`|
+|`p`|empty or any string|The spoiler text will be wrapped by `<p>` rather than `<span>`. Add this if you want newline before&after spoiler text. </br>Assign any value (except `"false"`) or even omit value turns this on; `"false"` means off. The default state is off.|
 
-[Preview](http://htmlpreview.github.io/?https://github.com/unnamed42/hexo-spoiler/blob/master/example/index.html)
+[Examples and preview](http://htmlpreview.github.io/?https://github.com/unnamed42/hexo-spoiler/blob/master/example/index.html)
+
+You can set these options globally or for a single post or for a single usage: 
+
+Global config (in blog's `_config.yml`):
+
+```yaml
+# ... other configs
+# be top-level
+spoiler:
+  style: blur
+  p: true
+```
+
+Config for single post (in post's front-matter):
+
+```yaml
+---
+title: blah blah
+spoiler:
+  style: box
+  color: yellow
+  p: false
+---
+```
+
+Config priority: inline option > front-matter > _config.yml > default
 
 ## Limitations
 
-Due to the limitations of hexo tags, context-related features like markdown footnote will not be rendered correctly. The renderer instance is different from what is used in post rendering, so it has no knowledge about context.
+* Due to the limitations of hexo tags, context-related features like markdown footnote will not be rendered correctly. The renderer instance is different from what is used in post rendering, so it has no knowledge about context.
+* Block elements like `<blockquote>`, `<figure>` is not supported.
