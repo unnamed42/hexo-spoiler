@@ -47,11 +47,11 @@ const parseOption = (args) => {
     const processors = {
         style: arg => ["blur", "box"].includes(arg) ? (options.style = arg, true) : false,
         color: arg => isColor(arg) ? (options.color = arg, true) : false,
-        p: arg => (options.p = true)
+        p: arg => ((options.p = arg !== "false"), true)
     };
     let i = 0;
     for (; i < args.length; ++i) {
-        const regex = /^(?<option>\w+):(?<value>[^\s]+)?$/;
+        const regex = /^(?<option>\w+):(?<value>.*)$/;
         const matches = regex.exec(args[i]);
         if ((matches === null || matches === void 0 ? void 0 : matches.groups) == undefined)
             break;

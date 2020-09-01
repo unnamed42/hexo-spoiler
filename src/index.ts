@@ -67,12 +67,13 @@ const parseOption = (args: string[] | undefined): [Options, string[]] => {
     color: arg =>
       isColor(arg) ? (options.color = arg, true) : false,
     p: arg =>
-      (options.p = true)
+      // passes check for any input, always returns `true`
+      ((options.p = arg !== "false"), true)
   };
 
   let i = 0;
   for(; i < args.length; ++i) {
-    const regex = /^(?<option>\w+):(?<value>[^\s]+)?$/;
+    const regex = /^(?<option>\w+):(?<value>.*)$/;
     const matches = regex.exec(args[i]);
     if(matches?.groups == undefined)
       break;
