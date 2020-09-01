@@ -4,14 +4,19 @@
   "description": "A spoiler creator for Hexo",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/unnamed42/hexo-spoiler.git"
   },
-  "dependencies": {
-    "cheerio": "^0.22.0"
+  "dependencies": {},
+  "devDependencies": {
+    "@types/hexo": "^3.8.5",
+    "@typescript-eslint/eslint-plugin": "^4.0.1",
+    "@typescript-eslint/parser": "^4.0.1",
+    "eslint": "^7.8.0",
+    "typescript": "^4.0.2"
   },
   "keywords": [
     "hexo",

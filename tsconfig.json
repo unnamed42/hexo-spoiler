@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+
+    "strict": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "allowUnreachableCode": false,
+    "skipLibCheck": true,
+
+    "removeComments": true,
+
+    "outDir": "./",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "lib": [
+      "es6",
+      "es2016.array.include"
+    ]
+  },
+  "include": [
+    "src/**/*.ts",
+    "tests/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "public"
+  ]
+}
