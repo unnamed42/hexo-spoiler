@@ -41,7 +41,7 @@ const isColor = (color) => {
 const hashedName = (colorName, length = 5) => crypto_1.createHash("md5").update(colorName).digest("hex").slice(0, length);
 const parseOption = (args) => {
     var _a;
-    const options = { style: "blur" };
+    const options = {};
     if (args === undefined)
         return [options, []];
     const processors = {
@@ -51,7 +51,7 @@ const parseOption = (args) => {
     };
     let i = 0;
     for (; i < args.length; ++i) {
-        const regex = /^(?<option>\w+):(?<value>\w+)?$/;
+        const regex = /^(?<option>\w+):(?<value>[^\s]+)?$/;
         const matches = regex.exec(args[i]);
         if ((matches === null || matches === void 0 ? void 0 : matches.groups) == undefined)
             break;
@@ -61,15 +61,18 @@ const parseOption = (args) => {
     }
     return [options, args.slice(i)];
 };
-hexo.extend.tag.register("spoiler", args => {
-    const [options, contents] = parseOption(args);
+hexo.extend.tag.register("spoiler", function (args) {
+    const globalOptions = hexo.config.spoiler;
+    const postOptions = this.spoiler;
+    const [parsedOptions, contents] = parseOption(args);
     const content = render(contents.join(" "));
-    const color = options.color ? `spoiler-${hashedName(options.color)}` : "";
-    const colorDef = options.color ? `<!-- spoiler-${hashedName(options.color)}:${options.color} -->` : "";
-    const tag = options.p ? "p" : "span";
+    const { style = "blur", color, p = false } = Object.assign(Object.assign(Object.assign({}, globalOptions), postOptions), parsedOptions);
+    const colorClass = color ? `spoiler-${hashedName(color)}` : "";
+    const colorDef = color ? `<!-- spoiler-${hashedName(color)}:${color} -->` : "";
+    const tag = p ? "p" : "span";
     return `${colorDef}
   <${tag} class="spoiler" onclick="this.classList.toggle('spoiler')">
-    <span class="spoiler-${options.style} ${color}">${content}</span>
+    <span class="spoiler-${style} ${colorClass}">${content}</span>
   </${tag}>`;
 });
 hexo.extend.filter.register("after_render:html", document => {

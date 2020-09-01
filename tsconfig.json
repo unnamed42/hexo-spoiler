@@ -14,7 +14,7 @@
     "strictPropertyInitialization": true,
     "allowUnreachableCode": false,
     "skipLibCheck": true,
-
+    "noImplicitThis": false,
     "removeComments": true,
 
     "outDir": "./",

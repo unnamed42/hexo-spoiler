@@ -51,13 +51,13 @@ const hashedName = (colorName: string, length = 5): string =>
   createHash("md5").update(colorName).digest("hex").slice(0, length);
 
 interface Options {
-  style: string;
+  style?: string;
   color?: string;
   p?: boolean;
 }
 
 const parseOption = (args: string[] | undefined): [Options, string[]] => {
-  const options: Options = { style: "blur" };
+  const options: Options = {};
   if(args === undefined)
     return [options, []];
 
@@ -72,7 +72,7 @@ const parseOption = (args: string[] | undefined): [Options, string[]] => {
 
   let i = 0;
   for(; i < args.length; ++i) {
-    const regex = /^(?<option>\w+):(?<value>\w+)?$/;
+    const regex = /^(?<option>\w+):(?<value>[^\s]+)?$/;
     const matches = regex.exec(args[i]);
     if(matches?.groups == undefined)
       break;
@@ -84,17 +84,25 @@ const parseOption = (args: string[] | undefined): [Options, string[]] => {
   return [options, args.slice(i)];
 };
 
-hexo.extend.tag.register("spoiler", args => {
-  const [options, contents] = parseOption(args);
+hexo.extend.tag.register("spoiler", function(args) {
+  // options specified in _config.yml
+  const globalOptions = hexo.config.spoiler as Options | undefined;
+  // options specified in post front-matter
+  const postOptions = this.spoiler as Options | undefined;
+  // options specified inline
+  const [parsedOptions, contents] = parseOption(args);
+
   const content = render(contents.join(" "));
 
-  const color = options.color ? `spoiler-${hashedName(options.color)}` : "";
-  const colorDef = options.color ? `<!-- spoiler-${hashedName(options.color)}:${options.color} -->` : "";
-  const tag = options.p ? "p" : "span";
+  const { style = "blur", color, p = false } = { ...globalOptions, ...postOptions, ...parsedOptions };
+
+  const colorClass = color ? `spoiler-${hashedName(color)}` : "";
+  const colorDef = color ? `<!-- spoiler-${hashedName(color)}:${color} -->` : "";
+  const tag = p ? "p" : "span";
 
   return `${colorDef}
   <${tag} class="spoiler" onclick="this.classList.toggle('spoiler')">
-    <span class="spoiler-${options.style} ${color}">${content}</span>
+    <span class="spoiler-${style} ${colorClass}">${content}</span>
   </${tag}>`;
 });
 
