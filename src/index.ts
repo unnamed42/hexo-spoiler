@@ -37,7 +37,7 @@ const appendToHead = (document: string, content: string): string =>
 const render = (text: string): string => {
   const result = hexo.render.renderSync({ text, engine: "markdown" });
   // if `text` contains multiple newline, then it's not a inline content, <p> should be preserved.
-  return text.includes("\n\n") ? result.replace(/<\/?p>/gi, "").trim() : result;
+  return text.includes("\n\n") ? result : result.replace(/<\/?p>/gi, "").trim();
 };
 
 // get the first `length` characters of md5 checksum of `colorName`
@@ -98,7 +98,7 @@ hexo.extend.filter.register("after_render:html", document => {
   document = document.replace(regex, (_, hash: string, color: string) => {
     // language=css
     colors[hash] = `
-    .spoiler .spoiler-box .spoiler-${hash}, .spoiler .spoiler-box .spoiler-${hash} > * {
+    .spoiler .spoiler-box.spoiler-${hash}, .spoiler .spoiler-box.spoiler-${hash} > * {
       color: ${color};
       background-color: ${color};
     }`;
