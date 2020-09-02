@@ -8,6 +8,9 @@ const baseCSS = `
 p.spoiler {
   display: flex;
 }
+.spoiler a {
+  pointer-events: none;
+}
 .spoiler-blur, .spoiler-blur > * {
   transition: text-shadow .5s ease;
 }
