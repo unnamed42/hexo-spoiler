@@ -17,7 +17,7 @@
     "noImplicitThis": false,
     "removeComments": true,
 
-    "outDir": "./",
+    "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
