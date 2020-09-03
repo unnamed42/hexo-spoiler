@@ -19,11 +19,11 @@ All options must match the `<option>:<value>` format. Texts starting from the fi
 
 Available options:
 
-|Option name|Option value|Effect|
-|-|-|-|
-|`style`|`blur` or `box`|The spoiler text will be blurred or covered by a box. The default style is `blur`.|
-|`color`|All valid css colors</br>**NO** space allowed for inline option!|Only works in `style:box`, changes the color of the box. The default color is `black`|
-|`p`|empty or any string|The spoiler text will be wrapped by `<p>` rather than `<span>`. Add this if you want newline before&after spoiler text. </br>Assign any value (except `"false"`) or even omit value turns this on; `"false"` means off. The default state is off.|
+|Option name|Type|Option value|Effect|
+|-|-|-|-|
+|`style`|`string`|`blur` or `box`|The spoiler text will be blurred or covered by a box. The default style is `blur`.|
+|`color`|`string`|All valid css colors</br>**NO** spaces allowed for inline option!|Only works in `style:box`, changes the color of the box. The default color is `black`|
+|`p`|`boolean`(in `_config.yml` or front-matter)<br/>`string`(in inline options)|empty or any string|The spoiler text will be wrapped by `<p>` rather than `<span>`. Add this if you want newline before & after spoiler text. </br>For inline options, assign any value (except `"false"`) or even omit it turns this on; `"false"` means off. The default state is off.|
 
 [Examples and preview](http://htmlpreview.github.io/?https://github.com/unnamed42/hexo-spoiler/blob/master/example/index.html)
 
@@ -52,6 +52,8 @@ spoiler:
 ```
 
 Config priority: inline option > front-matter > _config.yml > default
+
+**NOTE**: Run `hexo clean` if you changed the global `_config.yml`.
 
 ## Limitations
 
