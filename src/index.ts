@@ -3,7 +3,7 @@ import { createHash } from "crypto";
 // language=css
 const baseCSS = `
 .spoiler {
-  display: inline-flex;
+  display: inline;
 }
 p.spoiler {
   display: flex;
@@ -104,10 +104,7 @@ hexo.extend.tag.register("spoiler", function(args) {
   const colorDef = color ? `<!-- spoiler-${hashedName(color)}:${color} -->` : "";
   const tag = p ? "p" : "span";
 
-  return `${colorDef}
-  <${tag} class="spoiler" onclick="this.classList.toggle('spoiler')">
-    <span class="spoiler-${style} ${colorClass}">${content}</span>
-  </${tag}>`;
+  return `${colorDef}<${tag} class="spoiler" onclick="this.classList.toggle('spoiler')"><span class="spoiler-${style} ${colorClass}">${content}</span></${tag}>`;
 });
 
 hexo.extend.filter.register("after_render:html", document => {
