@@ -31,6 +31,42 @@ p.spoiler {
   color: black;
   background-color: black;
   text-shadow: none;
+}
+
+.spoiler-hover-container {
+  display: inline;
+}
+p.spoiler-hover-container {
+  display: flex;
+}
+
+.spoiler-hover-container .spoiler-hover {
+  transition: all 0.5s ease;
+}
+
+.spoiler-hover-container .spoiler-hover.spoiler-blur,
+.spoiler-hover-container .spoiler-hover.spoiler-blur > * {
+  color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
+  text-shadow: 0 0 10px grey;
+}
+
+.spoiler-hover-container:hover .spoiler-hover.spoiler-blur,
+.spoiler-hover-container:hover .spoiler-hover.spoiler-blur > * {
+  color: inherit;
+  background-color: inherit;
+  text-shadow: none;
+}
+
+.spoiler-hover-container .spoiler-hover.spoiler-box,
+.spoiler-hover-container .spoiler-hover.spoiler-box > * {
+  color: black;
+  background-color: black;
+}
+.spoiler-hover-container:hover .spoiler-hover.spoiler-box,
+.spoiler-hover-container:hover .spoiler-hover.spoiler-box > * {
+  color: inherit;
+  background-color: inherit;
 }`;
 
 // add `content` to the end of <head> section
@@ -56,6 +92,7 @@ interface Options {
   style?: string;
   color?: string;
   p?: boolean;
+  hover?: boolean;
 }
 
 const parseOption = (args: string[] | undefined): [Options, string[]] => {
@@ -70,7 +107,9 @@ const parseOption = (args: string[] | undefined): [Options, string[]] => {
       isColor(arg) ? (options.color = arg, true) : false,
     p: arg =>
       // passes check for any input, always returns `true`
-      ((options.p = arg !== "false"), true)
+      ((options.p = arg !== "false"), true),
+    hover: arg =>
+      (options.hover = arg === "true", true)
   };
 
   let i = 0;
@@ -97,10 +136,20 @@ hexo.extend.tag.register("spoiler", function(args) {
 
   const content = render(contents.join(" "));
 
-  const { style = "blur", color, p = false } = { ...globalOptions, ...postOptions, ...parsedOptions };
+  const { style = "blur", color, p = false, hover = false } = { 
+    ...globalOptions, 
+    ...postOptions, 
+    ...parsedOptions 
+  };
 
   const colorClass = color ? `spoiler-${hashedName(color)}` : "";
   const colorDef = color ? `<!-- spoiler-${hashedName(color)}:${color} -->` : "";
+
+  if (hover) {
+    const tag = p ? "p" : "span";
+    return `${colorDef}<${tag} class="spoiler-hover-container"><span class="spoiler-hover spoiler-${style} ${colorClass}">${content}</span></${tag}>`;
+  }
+  
   const tag = p ? "p" : "span";
 
   return `${colorDef}<${tag} class="spoiler" onclick="this.classList.toggle('spoiler')"><span class="spoiler-${style} ${colorClass}">${content}</span></${tag}>`;
@@ -113,6 +162,13 @@ hexo.extend.filter.register("after_render:html", document => {
     // language=css
     colors[hash] = `
     .spoiler .spoiler-box.spoiler-${hash}, .spoiler .spoiler-box.spoiler-${hash} > * {
+      color: ${color};
+      background-color: ${color};
+    }`;
+    
+    colors[hash] += `
+    .spoiler-hover-container .spoiler-hover.spoiler-box.spoiler-${hash}, 
+    .spoiler-hover-container .spoiler-hover.spoiler-box.spoiler-${hash} > * {
       color: ${color};
       background-color: ${color};
     }`;

@@ -24,6 +24,7 @@ Available options:
 |`style`|`string`|`blur` or `box`|The spoiler text will be blurred or covered by a box. The default style is `blur`.|
 |`color`|`string`|All valid css colors</br>**NO** spaces allowed for inline option!|Only works in `style:box`, changes the color of the box. The default color is `black`|
 |`p`|`boolean`(in `_config.yml` or front-matter)<br/>`string`(in inline options)|empty or any string|The spoiler text will be wrapped by `<p>` rather than `<span>`. Add this if you want newline before & after spoiler text. </br>For inline options, assign any value (except `"false"`) or even omit it turns this on; `"false"` means off. The default state is off.|
+|`hover`|`boolean`(in `_config.yml` or front-matter)<br/>`string`(in inline options)|`true` or any other string| The spoiler will be revealed on hover instead of click. The default state is off.|
 
 [Examples and preview](http://htmlpreview.github.io/?https://github.com/unnamed42/hexo-spoiler/blob/master/example/index.html)
 
@@ -37,6 +38,7 @@ Global config (in blog's `_config.yml`):
 spoiler:
   style: blur
   p: true
+  hover: true
 ```
 
 Config for single post (in post's front-matter):
@@ -48,6 +50,7 @@ spoiler:
   style: box
   color: yellow
   p: false
+  hover: true
 ---
 ```
 
